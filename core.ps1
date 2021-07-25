@@ -1,3 +1,4 @@
-function tntn(){
-    Write-Host "tntn"
+remove-item alias:ls
+function ls(){
+    Write-Host ls
 }
