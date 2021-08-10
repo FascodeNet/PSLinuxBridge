@@ -156,3 +156,4 @@ function mv(){
         }
     }
 }
+remove-item alias:curl
