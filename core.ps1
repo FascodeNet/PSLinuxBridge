@@ -110,3 +110,49 @@ function cp(){
         }
     }
 }
+remove-item alias:mv
+function mv(){
+    
+    $r_o=0
+    $f_o=0
+    $srclist=@()
+    $src=""
+    $dest=""
+    if ( $args.length -ne 0 ) {
+        foreach ( $opt in $args){
+            if( $opt[0] -eq "-" ){
+                for( $j=1; $j -lt $opt.length; $j++){
+                    switch ( $opt[$j] ){
+                        r{$r_o=1}
+                        f{$f_o=1}
+                    }
+                }
+            } else {
+                $srclist += $opt
+            }
+        }
+    }
+    $dest=$srclist[-1]
+    $srclist=$srclist[0..($srclist.length-2)]
+    for($i=0;$i -lt $srclist.length;$i++){
+        if($i -eq $srclist.length-1){
+            $src=$src + $srclist[$i]
+        }else{
+            $src=$src + $srclist[$i] + ","
+        }
+    }
+    if( $r_o -eq 1){
+        if($f_o -eq 1){
+            Move-Item -Recurse -Force $srclist -Destination $dest
+        }else{
+            Move-Item -Recurse  $srclist -Destination $dest
+        }
+    }else{
+        if($f_o -eq 1){
+            Move-Item -Force $srclist -Destination $dest
+        }else{
+            
+            Move-Item $srclist -Destination $dest
+        }
+    }
+}
